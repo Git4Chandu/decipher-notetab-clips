@@ -92,6 +92,22 @@ H="Make Question Comment"
 H="Make <html final="1">"
 ^!RunScript C:\python27\python.exe htmlFinal
 
+H="Make <html label="">"
+^!RunScript C:\python27\python.exe htmlFinal
+
+
+H="<note></note>"
+^!If "^$GetChar(^$Calc(^$GetColEnd$-1)$)$" = " " hasTrailingSpace ELSE hasNoTrailingSpace
+
+:hasTrailingSpace
+^!InsertText <note>^$StrDeleteRight(^&;1)$</note> 
+^!Goto END
+
+:hasNoTrailingSpace
+^!InsertText <note>^&</note>
+^!Goto END
+
+
 H=";"
 
 
