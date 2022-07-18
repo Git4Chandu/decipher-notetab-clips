@@ -36,11 +36,8 @@ H="Client Requirements"
 ^!Set %p_ValueList%=^$SetDefaultValue(^%p_ValueList%;^%p_ReqValue%)$
 ^!GoTo End
 
-H=";"
-
 
 H=";MISC"
-
 
 H="New Survey"
 ^!RunScript C:\python27\python.exe cleanUp
@@ -93,7 +90,7 @@ H="Make <html final="1">"
 ^!RunScript C:\python27\python.exe htmlFinal
 
 H="Make <html label="">"
-^!RunScript C:\python27\python.exe htmlFinal
+^!RunScript C:\python27\python.exe html
 
 
 H="<note></note>"
@@ -106,9 +103,6 @@ H="<note></note>"
 :hasNoTrailingSpace
 ^!InsertText <note>^&</note>
 ^!Goto END
-
-
-H=";"
 
 
 H=";QUESTION TYPES"
@@ -237,8 +231,6 @@ H="Make Pipe"
 ^!RunScript C:\python27\python.exe makePipe
 ^!GoTo End
 
-H=";"
-
 
 H=";QUESTION ELEMENTS"
 
@@ -360,9 +352,6 @@ H="Make Term"
 H="Make Groups"
 ^!RunScript C:\python27\python.exe makeGroups
 
-H=" "
-
-
 H="; TEXT FORMATTING"
 
 
@@ -423,7 +412,7 @@ H="<br/><br/>"
 H="<!-- -->"
 ^!InsertText <!--^&-->
 
-H=" "
+
 
 
 H="; ATTRIBUTES"
@@ -1672,6 +1661,14 @@ try:
     from sys import stdin
     input = stdin.read().strip()
     print "<html label=\"\" cond=\"\" where=\"survey\" final=\"1\"><div class=\"error\">%s</div></html>" % input
+except Exception, e:
+    print e
+
+H="html"
+try:
+    from sys import stdin
+    input = stdin.read().strip()
+    print "<html label=\"cmx\" cond=\"1\">%s</html>\n<suspend/>" % input
 except Exception, e:
     print e
 
@@ -3510,7 +3507,7 @@ try:
     # add the all important line breakage
     output2 = input
 
-    nota_array = [">None of the above",">None of these"]
+    nota_array = [">None of the above",">None of these",">None",">Don't know"]
     for nota in nota_array:
       if nota in output2:
         repwith = " exclusive=\"1\" randomize=\"0\"" + nota
